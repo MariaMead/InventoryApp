@@ -14,10 +14,9 @@ def lambda_handler(event, context):
             'statusCode': 400,
             'body': json.dumps("Missing 'id' path parameter")
         }
-
-    item_location_id = event['pathParameters']['id']
     
     try: 
+        item_location_id = int(event['pathParameters']['id'])
         response = table.query(
             IndexName=GSI_NAME,
             KeyConditionExpression=Key('item_location_id').eq(item_location_id)
