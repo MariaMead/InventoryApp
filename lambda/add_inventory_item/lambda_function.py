@@ -25,8 +25,8 @@ def lambda_handler(event, context):
         table.put_item(
             Item={
                 'item_id': unique_id,
-                'item_name': data['item_name']['S'],
-                'item_description': data['item_description']['S'],
+                'item_name': data['item_name'],
+                'item_description': data['item_description'],
                 'item_qty': Decimal(str(data['item_qty'])),
                 'item_price': Decimal(str(data['item_price'])),
                 'item_location_id': Decimal(str(data['item_location_id']))
