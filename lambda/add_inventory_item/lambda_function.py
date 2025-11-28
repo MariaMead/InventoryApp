@@ -27,9 +27,9 @@ def lambda_handler(event, context):
                 'item_id': unique_id,
                 'item_name': data['item_name']['S'],
                 'item_description': data['item_description']['S'],
-                'item_qty': Decimal(data['item_qty']['N']),
-                'item_price': Decimal(data['item_price']['N']),
-                'item_location_id': Decimal(data['item_location_id']['N'])
+                'item_qty': Decimal(str(data['item_qty'])),
+                'item_price': Decimal(str(data['item_price'])),
+                'item_location_id': Decimal(str(data['item_location_id']))
             }
         )
         return {
