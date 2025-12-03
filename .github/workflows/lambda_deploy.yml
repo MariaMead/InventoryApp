@@ -32,7 +32,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: us-east-1
-
+          
       - name: Zip the get_all_inventory_items Lambda function
         run: zip function.zip lambda_function.py
         working-directory: ./lambda/get_all_inventory_items
