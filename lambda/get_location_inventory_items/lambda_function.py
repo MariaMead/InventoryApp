@@ -1,0 +1,43 @@
+import json
+
+import boto3
+from boto3.dynamodb.conditions import Key
+
+dynamodb = boto3.resource('dynamodb')
+table_name = 'Inventory'
+GSI_NAME = 'GSI_SK_PK_query_inventory_by_location'
+
+"""AWS Lambda Function for Inventory App"""
+def lambda_handler(event, context):
+    table = dynamodb.Table(table_name)
+    # Get the key from the path parameters
+    if 'pathParameters' not in event or 'id' not in event['pathParameters']:
+        return {
+            'statusCode': 400,
+            'body': json.dumps("Missing 'id' path parameter")
+        }
+    
+    try: 
+        item_location_id = int(event['pathParameters']['id'])
+        response = table.query(
+            IndexName=GSI_NAME,
+            KeyConditionExpression=Key('item_location_id').eq(item_location_id)
+        )
+        items = response.get('Items', [])
+   
+        if not items:
+            return {
+                'statusCode': 404,
+                'body': json.dumps('Item not found')
+            }
+    
+        return {
+            'statusCode': 200,
+            'body': json.dumps(items, default=str)  # Use str to handle any special types like Decimal
+        }
+    except Exception as e:
+        print(e)
+        return {
+            'statusCode': 500,
+            'body': json.dumps(str(e))
+        }
