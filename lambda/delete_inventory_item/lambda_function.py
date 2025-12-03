@@ -1,9 +1,10 @@
-import boto3
 import json
+
+import boto3
 from boto3.dynamodb.conditions import Key
 
 
-
+"""AWS Lambda Function for Inventory App"""
 def lambda_handler(event, context):
     dynamodb = boto3.resource('dynamodb')
     table_name = 'Inventory'

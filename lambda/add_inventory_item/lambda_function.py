@@ -1,8 +1,10 @@
 import json
-import boto3
+
 import uuid
 from decimal import Decimal
+import boto3
 
+"""AWS Lambda Function for Inventory App"""
 def lambda_handler(event, context):
     # Parse incoming JSON data
     try:

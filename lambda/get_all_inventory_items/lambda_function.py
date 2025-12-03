@@ -1,6 +1,7 @@
-import boto3
 import json
+import boto3
 
+"""AWS Lambda Function for Inventory App"""
 def lambda_handler(event, context):
     # Initialize a DynamoDB client
     dynamo_client = boto3.client('dynamodb')
